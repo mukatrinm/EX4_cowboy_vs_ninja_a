@@ -1,5 +1,7 @@
 #include "Character.hpp"
 
+#include <stdexcept>
+
 using namespace ariel;
 
 Character::Character(const std::string name, const Point &hit_point) : name_{name}, hit_point_{hit_point} {

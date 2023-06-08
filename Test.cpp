@@ -1,5 +1,6 @@
 #include <limits>
 #include <random>
+#include <stdexcept>
 
 #include "doctest.h"
 #include "sources/Character.hpp"
@@ -102,210 +103,212 @@ TEST_SUITE("Cowboy tests") {
     }
 }
 
-// TEST_SUITE("Ninja tests") {
-//     Point p1{1, 2};
-//     YoungNinja young_ninj{"young", p1};
-//     OldNinja old_ninj{"old", p1};
-//     TrainedNinja trained_ninj{"train", p1};
+TEST_SUITE("Ninja tests") {
+    Point p1{1, 2};
+    YoungNinja young_ninj{"young", p1};
+    OldNinja old_ninj{"old", p1};
+    TrainedNinja trained_ninj{"train", p1};
 
-//     TEST_CASE("initialization tests") {
-//         SUBCASE("YoungNinja") {
-//             CHECK(young_ninj.isAlive());
-//             CHECK_EQ(young_ninj.getName(), "young");
-//             CHECK_EQ(young_ninj.getLocation().distance(p1), 0);
-//         }
+    TEST_CASE("initialization tests") {
+        SUBCASE("YoungNinja") {
+            CHECK(young_ninj.isAlive());
+            CHECK_EQ(young_ninj.getName(), "young");
+            CHECK_EQ(young_ninj.getLocation().distance(p1), 0);
+        }
 
-//         SUBCASE("OldNinja") {
-//             CHECK(old_ninj.isAlive());
-//             CHECK_EQ(old_ninj.getName(), "old");
-//             CHECK_EQ(old_ninj.getLocation().distance(p1), 0);
-//         }
+        SUBCASE("OldNinja") {
+            CHECK(old_ninj.isAlive());
+            CHECK_EQ(old_ninj.getName(), "old");
+            CHECK_EQ(old_ninj.getLocation().distance(p1), 0);
+        }
 
-//         SUBCASE("TrainedNinja") {
-//             CHECK(trained_ninj.isAlive());
-//             CHECK_EQ(trained_ninj.getName(), "train");
-//             CHECK_EQ(trained_ninj.getLocation().distance(p1), 0);
-//         }
-//     }
+        SUBCASE("TrainedNinja") {
+            CHECK(trained_ninj.isAlive());
+            CHECK_EQ(trained_ninj.getName(), "train");
+            CHECK_EQ(trained_ninj.getLocation().distance(p1), 0);
+        }
+    }
 
-//     TEST_CASE("slashing tests") {
-//         SUBCASE("YoungNinja with YoungNinja tests") {
-//             SUBCASE("can slash (in range)") {
-//                 YoungNinja young_ninj_2{"youngninj2", p1};
+    TEST_CASE("slashing tests") {
+        SUBCASE("YoungNinja with YoungNinja tests") {
+            SUBCASE("can slash (in range)") {
+                YoungNinja young_ninj_2{"youngninj2", p1};
 
-//                 for (size_t i = 0; i < 3; i++) {
-//                     young_ninj.slash(&young_ninj_2);
-//                 }
+                for (size_t i = 0; i < 3; i++) {
+                    young_ninj.slash(&young_ninj_2);
+                }
 
-//                 CHECK_FALSE(young_ninj.isAlive());
-//             }
+                CHECK_FALSE(young_ninj.isAlive());
+            }
 
-//             SUBCASE("can't slash (not in range)") {
-//                 YoungNinja young_ninj_2{"youngninj2", Point{10, 10}};
+            SUBCASE("can't slash (not in range)") {
+                YoungNinja young_ninj_2{"youngninj2", Point{10, 10}};
 
-//                 for (size_t i = 0; i < 3; i++) {  //  3 slashes is enough to kill
-//                     young_ninj.slash(&young_ninj_2);
-//                 }
+                for (size_t i = 0; i < 3; i++) {  //  3 slashes is enough to kill
+                    young_ninj.slash(&young_ninj_2);
+                }
 
-//                 CHECK(young_ninj.isAlive());
-//             }
-//         }
+                CHECK(young_ninj.isAlive());
+            }
+        }
 
-//         SUBCASE("OldNinja with OldNinja tests") {
-//             SUBCASE("can slash (in range)") {
-//                 OldNinja old_ninj_2{"oldninj2", p1};
+        SUBCASE("OldNinja with OldNinja tests") {
+            SUBCASE("can slash (in range)") {
+                OldNinja old_ninj_2{"oldninj2", p1};
 
-//                 for (size_t i = 0; i < 5; i++) {
-//                     old_ninj.slash(&old_ninj_2);
-//                 }
+                for (size_t i = 0; i < 5; i++) {
+                    old_ninj.slash(&old_ninj_2);
+                }
 
-//                 CHECK_FALSE(old_ninj.isAlive());
-//             }
+                CHECK_FALSE(old_ninj.isAlive());
+            }
 
-//             SUBCASE("can't slash (not in range)") {
-//                 OldNinja old_ninj_2{"oldninj2", Point{10, 10}};
+            SUBCASE("can't slash (not in range)") {
+                OldNinja old_ninj_2{"oldninj2", Point{10, 10}};
 
-//                 for (size_t i = 0; i < 5; i++) {  //  3 slashes is enough to kill
-//                     old_ninj.slash(&old_ninj_2);
-//                 }
+                for (size_t i = 0; i < 5; i++) {  //  3 slashes is enough to kill
+                    old_ninj.slash(&old_ninj_2);
+                }
 
-//                 CHECK(old_ninj.isAlive());
-//             }
-//         }
+                CHECK(old_ninj.isAlive());
+            }
+        }
 
-//         SUBCASE("TrainedNinja with TrainedNinja tests") {
-//             SUBCASE("can slash (in range)") {
-//                 TrainedNinja trained_ninj_2{"trainedninj2", p1};
+        SUBCASE("TrainedNinja with TrainedNinja tests") {
+            SUBCASE("can slash (in range)") {
+                TrainedNinja trained_ninj_2{"trainedninj2", p1};
 
-//                 for (size_t i = 0; i < 4; i++) {
-//                     trained_ninj.slash(&trained_ninj_2);
-//                 }
+                for (size_t i = 0; i < 4; i++) {
+                    trained_ninj.slash(&trained_ninj_2);
+                }
 
-//                 CHECK_FALSE(trained_ninj.isAlive());
-//             }
+                CHECK_FALSE(trained_ninj.isAlive());
+            }
 
-//             SUBCASE("can't slash (not in range)") {
-//                 TrainedNinja trained_ninj_2{"trainedninj2", Point{10, 10}};
+            SUBCASE("can't slash (not in range)") {
+                TrainedNinja trained_ninj_2{"trainedninj2", Point{10, 10}};
 
-//                 for (size_t i = 0; i < 4; i++) {  //  3 slashes is enough to kill
-//                     trained_ninj.slash(&trained_ninj_2);
-//                 }
+                for (size_t i = 0; i < 4; i++) {  //  3 slashes is enough to kill
+                    trained_ninj.slash(&trained_ninj_2);
+                }
 
-//                 CHECK(trained_ninj.isAlive());
-//             }
-//         }
+                CHECK(trained_ninj.isAlive());
+            }
+        }
 
-//         SUBCASE("OldNinja with TrainedNinja tests") {
-//             SUBCASE("can slash (in range)") {
-//                 TrainedNinja trained_ninj_2{"trainedninj2", p1};
+        SUBCASE("OldNinja with TrainedNinja tests") {
+            SUBCASE("can slash (in range)") {
+                TrainedNinja trained_ninj_2{"trainedninj2", p1};
 
-//                 for (size_t i = 0; i < 4; i++) {
-//                     old_ninj.slash(&trained_ninj_2);
-//                 }
+                for (size_t i = 0; i < 4; i++) {
+                    old_ninj.slash(&trained_ninj_2);
+                }
 
-//                 CHECK_FALSE(trained_ninj.isAlive());
-//             }
+                CHECK_FALSE(trained_ninj.isAlive());
+            }
 
-//             SUBCASE("can't slash (not in range)") {
-//                 TrainedNinja trained_ninj_2{"trainedninj2", Point{10, 10}};
+            SUBCASE("can't slash (not in range)") {
+                TrainedNinja trained_ninj_2{"trainedninj2", Point{10, 10}};
 
-//                 for (size_t i = 0; i < 4; i++) {  //  3 slashes is enough to kill
-//                     old_ninj.slash(&trained_ninj_2);
-//                 }
+                for (size_t i = 0; i < 4; i++) {  //  3 slashes is enough to kill
+                    old_ninj.slash(&trained_ninj_2);
+                }
 
-//                 CHECK(trained_ninj.isAlive());
-//             }
-//         }
-//     }
-// }
+                CHECK(trained_ninj.isAlive());
+            }
+        }
+    }
+}
 
-// TEST_SUITE("Team tests") {
-//     Point p1{1, 2};
+TEST_SUITE("Team tests") {
+    Point p1{1, 2};
 
-//     TEST_CASE("initialization tests") {
-//         Cowboy cowboy{"cow", p1};
-//         YoungNinja young_ninj{"young", p1};
-//         OldNinja old_ninj{"old", p1};
-//         TrainedNinja trained_ninj{"train", p1};
+    TEST_CASE("initialization tests") {
+        Cowboy cowboy{"cow", p1};
+        YoungNinja young_ninj{"young", p1};
+        OldNinja old_ninj{"old", p1};
+        TrainedNinja trained_ninj{"train", p1};
 
-//         Team team1{&cowboy};
-//         Team team2{&old_ninj};
+        Team team1{&cowboy};
+        Team team2{&old_ninj};
 
-//         CHECK_EQ(team1.stillAlive(), 1);
-//         team1.add(&young_ninj);
-//         CHECK_EQ(team1.stillAlive(), 2);
+        CHECK_EQ(team1.stillAlive(), 1);
+        team1.add(&young_ninj);
+        CHECK_EQ(team1.stillAlive(), 2);
 
-//         CHECK_EQ(team2.stillAlive(), 1);
-//         team2.add(&young_ninj);
-//         CHECK_EQ(team2.stillAlive(), 2);
-//     }
+        CHECK_EQ(team2.stillAlive(), 1);
+        team2.add(&young_ninj);
+        CHECK_EQ(team2.stillAlive(), 2);
+    }
 
-//     // TEST_CASE("team capacity test") {
-//     //     // Cowboy cowboy{"cow", p1};
+    TEST_CASE("team capacity test") {
+        Cowboy cowboy{"cow", p1};
+        Cowboy cowboy2{"cow", p1};
 
-//     //     Team team1{new Cowboy{"cow", p1}};
-//     //     Team team2{new Cowboy{"cow", p1}};
+        Team team1{&cowboy};
+        Team team2{&cowboy2};
 
-//     //     for (size_t i = 0; i < 9; i++) {
-//     //         Cowboy *cowboyy1 = new Cowboy{"cow1", p1};
-//     //         Cowboy *cowboyy2 = new Cowboy{"cow2", p1};
-//     //         team1.add(cowboyy1);
-//     //         team2.add(cowboyy2);
-//     //     }
-//     //     CHECK_EQ(team1.stillAlive(), 10);
-//     //     CHECK_EQ(team2.stillAlive(), 10);
+        for (size_t i = 0; i < 9; i++) {
+            Cowboy *cowboyy1 = new Cowboy{"cow1", p1};
+            Cowboy *cowboyy2 = new Cowboy{"cow2", p1};
+            team1.add(cowboyy1);
+            team2.add(cowboyy2);
+        }
+        CHECK_EQ(team1.stillAlive(), 10);
+        CHECK_EQ(team2.stillAlive(), 10);
 
-//     //     Cowboy *cowboyy = new Cowboy{"cow", p1};
-//     //     CHECK_THROWS_AS(team1.add(cowboyy), std::runtime_error);
-//     //     CHECK_THROWS_AS(team2.add(cowboyy), std::runtime_error);
-//     // }
+        Cowboy cowboy3{"cow", p1};
+        Cowboy cowboy4{"cow", p1};
+        CHECK_THROWS_AS(team1.add(&cowboy3), std::runtime_error);
+        CHECK_THROWS_AS(team2.add(&cowboy4), std::runtime_error);
+    }
 
-//     TEST_CASE("one team per charachter test") {
-//         Cowboy cowboy{"cow", p1};
-//         Cowboy cowboy2{"cow2", p1};
-//         Cowboy cowboy3{"cow3", p1};
+    TEST_CASE("one team per charachter test") {
+        Cowboy cowboy{"cow", p1};
+        Cowboy cowboy2{"cow2", p1};
+        Cowboy cowboy3{"cow3", p1};
 
-//         Team team1{&cowboy};
+        Team team1{&cowboy};
 
-//         CHECK_THROWS_AS(Team2{&cowboy}, std::runtime_error);
+        CHECK_THROWS_AS(Team2{&cowboy}, std::runtime_error);
 
-//         Team2 team2{&cowboy2};
-//         CHECK_THROWS_AS(Team{&cowboy2}, std::runtime_error);
+        Team2 team2{&cowboy2};
+        CHECK_THROWS_AS(Team{&cowboy2}, std::runtime_error);
 
-//         team1.add(&cowboy3);
-//         CHECK_THROWS_AS(team2.add(&cowboy3), std::runtime_error);
-//     }
+        team1.add(&cowboy3);
+        CHECK_THROWS_AS(team2.add(&cowboy3), std::runtime_error);
+    }
 
-//     TEST_CASE("attack test") {
-//         Cowboy cowboy{"cow", p1};
-//         YoungNinja ninja{"youngninj", p1};
+    TEST_CASE("attack test") {
+        Cowboy cowboy{"cow", p1};
+        YoungNinja ninja{"youngninj", p1};
 
-//         SUBCASE("Team") {
-//             Team team1{&cowboy};
-//             Team team2{&ninja};
+        SUBCASE("Team") {
+            Team team1{&cowboy};
+            Team team2{&ninja};
 
-//             for (size_t i = 0; i < 9; i++) {
-//                 Cowboy *cowboyy = new Cowboy{"cow", p1};
-//                 team1.add(cowboyy);
-//             }
+            for (size_t i = 0; i < 9; i++) {
+                Cowboy *cowboyy = new Cowboy{"cow", p1};
+                team1.add(cowboyy);
+            }
 
-//             team1.attack(&team2);
+            team1.attack(&team2);
 
-//             CHECK_EQ(team2.stillAlive(), 0);
-//         }
+            CHECK_EQ(team2.stillAlive(), 0);
+        }
 
-//         SUBCASE("Team2") {
-//             Team2 team1{&cowboy};
-//             Team2 team2{&ninja};
+        SUBCASE("Team2") {
+            Team2 team1{&cowboy};
+            Team2 team2{&ninja};
 
-//             for (size_t i = 0; i < 9; i++) {
-//                 Cowboy *cowboyy = new Cowboy{"cow", p1};
-//                 team1.add(cowboyy);
-//             }
+            for (size_t i = 0; i < 9; i++) {
+                Cowboy *cowboyy = new Cowboy{"cow", p1};
+                team1.add(cowboyy);
+            }
 
-//             team1.attack(&team2);
+            team1.attack(&team2);
 
-//             CHECK_EQ(team2.stillAlive(), 0);
-//         }
-//     }
-// }
+            CHECK_EQ(team2.stillAlive(), 0);
+        }
+    }
+}

@@ -1,5 +1,7 @@
 #include "Team.hpp"
 
+#include <stdexcept>
+
 using namespace ariel;
 
 Team::Team(Character* leader) {
@@ -18,7 +20,7 @@ void Team::add(Character* character) {
     if (characters_.size() < 10) {
         characters_.push_back(character);
     } else {
-        delete character;  // TODO: make sure i need to really delete the character if the team is full
+        // delete character;  // TODO: make sure i need to really delete the character if the team is full
         throw std::runtime_error("Team is full.");
     }
 }
