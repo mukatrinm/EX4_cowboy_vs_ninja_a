@@ -2,18 +2,18 @@
 
 using namespace ariel;
 
-Character::Character(const std::string name, const Point &position) : name_{name}, position_{position} {
+Character::Character(const std::string name, const Point &hit_point) : name_{name}, hit_point_{hit_point} {
 }
 
 void Character::setHealth(int health) {
     if (health < 0) {
-        throw std::invalid_argument("health can't be negative");
+        throw std::invalid_argument("health can't be negative.");
     }
 
     health_ = health;
 }
 
-bool ariel::Character::isAlive() const {
+bool Character::isAlive() const {
     return health_ > 0;
 }
 
@@ -30,7 +30,7 @@ std::string Character::getName() const {
 }
 
 Point Character::getLocation() const {
-    return position_;
+    return hit_point_;
 }
 
 void Character::print() const {

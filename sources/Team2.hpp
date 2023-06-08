@@ -11,16 +11,16 @@
 
 // TODO: add copy and assignment constructors
 namespace ariel {
-class Team {
+class Team2 {
    private:
     std::vector<Character *> characters_;  // leader must be at index 0.
     Character *leader_ = nullptr;
 
    public:
-    Team(Character *leader);
-    // ~Team();
+    Team2(Character *leader);
+    // ~Team2();
     void add(Character *character);
-    void attack(Team *enemy);
+    void attack(Team2 *enemy);
     int stillAlive() const;
     void print() const;
 };

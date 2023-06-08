@@ -7,8 +7,9 @@ class Point {
 
    public:
     Point(double x, double y);
+    Point(const Point &other);
     double distance(const Point &point) const;
     void print() const;
-    double moveTowards(Point &point1, Point &point2, double distance) const;
+    static Point moveTowards(Point &src_pos, Point &target_pos, double distance);
 };
 }  // namespace ariel
